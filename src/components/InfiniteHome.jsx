@@ -10,7 +10,7 @@ function InfiniteHome({ props, end }) {
     const [Toggle, setToggle] = useState(false)
 
     const MovieList = React.lazy(() => import('./MovieList'))
-
+    
     return (
         <div>
             <div className="flex-images justify-content-center">

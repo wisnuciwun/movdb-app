@@ -5,11 +5,12 @@ import { ErrorAlert } from '../components/Alerts.jsx'
 import Axios from '../config/axios/axios'
 import { getMoviesData, searchMovieKeyword } from '../config/redux/rootAction'
 import { API_GET_MOVIES_DATA, API_KEY } from '../constants/Constants'
-import { RequestMoviesData } from '../helpers/RequestHandler'
+import { RequestMoviesData, RequestMoviesDataByTitle } from '../helpers/RequestHandler'
 import logo from '../public/assets/images/logo.png'
 import logogif from '../public/assets/images/logo-gif.gif'
 import './index.scss'
 import CustomButton from '../components/CustomButton.jsx'
+import { YEAR } from '../constants/Years.js'
 
 class DefaultHeader extends Component {
   constructor(props) {
@@ -29,10 +30,10 @@ class DefaultHeader extends Component {
     }
   }
 
-  onChangeSearchKeyword = (val) => {
+  onChangeSearchKeyword = (val = '') => {
     let { keyword } = this.state
     if (keyword != null || keyword != '') {
-      let filteredKeyword = this.state.keywordData.filter(x => { return (x.toLowerCase().includes((val).toLowerCase())) })
+      let filteredKeyword = this.state.keywordData.filter(x => { return (x.toLowerCase().includes(val.toLowerCase())) })
       this.setState({
         keywordFiltered: filteredKeyword
       })
@@ -75,6 +76,9 @@ class DefaultHeader extends Component {
 
     try {
       res = await RequestMoviesData(searchKeyword, 1)
+      if(res.Response.toString() == "False"){
+        res = {Search: [await RequestMoviesDataByTitle(searchKeyword)]}
+      }
     } catch (error) {
       ErrorAlert(error)
     }
@@ -102,6 +106,7 @@ class DefaultHeader extends Component {
 
   render() {
     let { keyword, keywordFiltered, imglogo } = this.state
+    console.log(YEAR.slice(0, YEAR.indexOf(new Date().getUTCFullYear())))
 
     return (
       <div className="header">
@@ -113,7 +118,7 @@ class DefaultHeader extends Component {
               <UncontrolledDropdown className="d-flex justify-content-between align-items-center">
                 <DropdownToggle className="d-flex justify-content-between custom-navbar" nav>
                   <Input onClick={(e) => this.onChangeSearchKeyword('')} onKeyPress={this.onSearchKeypress} value={keyword} onChange={(e) => this.onChangeSearchKeyword(e.target.value)} className="custom-search margin-right" type="text" />
-                  <CustomButton icon={<i class="fas fa-search"></i>} title="Search" onClick={this.onChangeSearchKeyword} />
+                  <CustomButton icon={<i class="fas fa-search"></i>} title="Search" onClick={this.onSearchMovie} />
                 </DropdownToggle>
                 <div style={{ width: '50%' }}>
                   <DropdownMenu className="custom-dropdown">

@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense } from 'react'
 import { connect } from 'react-redux'
 import { ErrorAlert } from '../../components/Alerts.jsx'
-import Line from '../../components/Line.jsx'
-import TextDecoration from '../../components/TextDecoration.jsx'
+import Loading from '../../components/Loading.jsx'
 import Axios from '../../config/axios/axios'
 import { API_GET_MOVIES_DATA, API_KEY } from '../../constants/Constants'
 import './index.scss'
@@ -42,6 +41,7 @@ class MovieDetail extends Component {
         let showDetails = []
         let first = 0
         let last = textsAmount
+        const MovieDescription = React.lazy(() => import('../../components/MovieDescription.jsx'))
 
         for (const [key, value] of Object.entries(movieDetail)) {
             if (key != "Ratings" && key != "Poster" && key != "Title" && key != "Response") {
@@ -51,7 +51,7 @@ class MovieDetail extends Component {
 
         for (let i = 0; i < (Math.round(details.length / textsAmount)); i++) {
             const slicePartition = 1
-            
+
             if (Math.round(details.length / textsAmount) <= 1)
                 showDetails = <td>{details.map(x => <tr><td style={{ fontSize: '10pt' }}>{x.key}</td><td style={{ fontSize: '10pt' }}><b>{x.value}</b></td></tr>)}</td>
             else
@@ -63,34 +63,9 @@ class MovieDetail extends Component {
 
         return (
             <div className="p-3">
-                <h3><span style={{color: 'red', fontWeight: 'bold'}}>| </span>{movieDetail.Title}</h3><br />
-                <div className="d-flex justify-content-start">
-                    <img src={movieDetail.Poster} className="detailpage-image margin-right" />
-                    <div>
-                        <table>
-                        <b><TextDecoration/>Descriptions :</b><br />
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                {showDetails}
-                            </tr>
-                        </table>
-                        <Line/>
-                        <p>
-                            <b><TextDecoration/>Ratings :</b><br />
-                            {
-                                movieDetail ?
-                                    movieDetail.Ratings.map(x => {
-                                        return (<span style={{ fontSize: '10pt' }}>{`${x.Source} (Ratings: ${x.Value})`}<br /></span>)
-                                    })
-                                    :
-                                    null
-                            }
-                        </p>
-                    </div>
-                </div>
+                <Suspense fallback={<Loading/>}>
+                    <MovieDescription movieDetail={movieDetail} showDetails={showDetails} />
+                </Suspense>
             </div>
         )
     }

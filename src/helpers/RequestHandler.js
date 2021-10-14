@@ -13,3 +13,15 @@ export async function RequestMoviesData(searchKeyword, page) {
     results = res.data
     return results
 }
+
+export async function RequestMoviesDataByTitle(searchKeyword) {
+    let res
+    let results
+    try {
+        res = await Axios.get(`${API_GET_MOVIES_DATA}apikey=${API_KEY}&t=${searchKeyword}`)
+    } catch (error) {
+        ErrorAlert(error)
+    }
+    results = res.data
+    return results
+}
