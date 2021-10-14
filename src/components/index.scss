@@ -13,10 +13,21 @@
     height: 250px;
     object-fit: cover;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .custom-list-group-item{
     text-align: center;
     width: 200px;
-    height: 450px;
+    height: 470px;
+}
+
+.modal-body{
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+
+.force-center{
+    text-align: center !important;
 }

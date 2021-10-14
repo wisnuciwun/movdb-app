@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ErrorAlert } from '../../components/Alerts.jsx'
+import Line from '../../components/Line.jsx'
+import TextDecoration from '../../components/TextDecoration.jsx'
 import Axios from '../../config/axios/axios'
 import { API_GET_MOVIES_DATA, API_KEY } from '../../constants/Constants'
 
@@ -33,31 +35,47 @@ class MovieDetail extends Component {
     }
 
     render() {
-        var details = []
+        let details = []
+        let showDetails = []
+        let first = 0
+        let last = 10
+
         for (const [key, value] of Object.entries(this.state.movieDetail)) {
             if (key != "Ratings" && key != "Poster" && key != "Title" && key != "Response") {
-                details.push({ key: key, value: value })
+                details.push({ key: key, value: `: ${value}` })
             }
+        }
+
+        for (let i = 0; i < (Math.round(details.length / 10)); i++) {
+
+            if (Math.round(details.length / 10) <= 1)
+                showDetails = <td>{details.map(x => <tr><td style={{ fontSize: '10pt' }}>{x.key}</td><td style={{ fontSize: '10pt' }}><b>{x.value}</b></td></tr>)}</td>
+            else
+                showDetails.push(<td>{details.slice(first, last).map(x => <tr><td style={{ fontSize: '10pt' }}>{x.key}</td><td style={{ fontSize: '10pt' }}><b>{x.value}</b></td></tr>)}</td>)
+
+            first = last + 1
+            last = last + 10
         }
 
         return (
             <div style={{ padding: '10px' }}>
-                <h3>{this.state.movieDetail.Title}</h3><br />
+                <h3><span style={{color: 'red', fontWeight: 'bold'}}>| </span>{this.state.movieDetail.Title}</h3><br />
                 <div className="d-flex justify-content-start">
-                    <img style={{height:'400px', width: 'auto'}} src={this.state.movieDetail.Poster} className="margin-right" />
-                    <div style={{ width: '300px' }}>
-                        <b>Descriptions :</b><br />
+                    <img style={{ height: '400px', width: 'auto', borderRadius: '10px' }} src={this.state.movieDetail.Poster} className="margin-right" />
+                    <div>
                         <table>
+                        <b><TextDecoration/>Descriptions :</b><br />
                             <tr>
                                 <th></th>
                                 <th></th>
                             </tr>
                             <tr>
-                                {details.map(x => <tr><td style={{ fontSize: '10pt' }}>{x.key}</td><td style={{ fontSize: '10pt' }}><b>{x.value}</b></td></tr>)}
+                                {showDetails}
                             </tr>
                         </table>
-                        <p >
-                            <b>Ratings :</b><br />
+                        <Line/>
+                        <p>
+                            <b><TextDecoration/>Ratings :</b><br />
                             {
                                 this.state.movieDetail ?
                                     this.state.movieDetail.Ratings.map(x => {

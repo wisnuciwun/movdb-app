@@ -9,8 +9,8 @@ function ImageModal({imgTitle, imgLink, toggle, setToggle}) {
                 {imgTitle}
             </ModalHeader>
             <ModalBody className="justify-content-center">
-                <div style={{width: '100%', textAlign:'center'}}>
-                    <img src={imgLink} />
+                <div className="modal-body">
+                    <img className="custom-poster" style={{height: '400px', objectFit: 'contain'}} src={imgLink} />
                 </div>
             </ModalBody>
         </Modal>

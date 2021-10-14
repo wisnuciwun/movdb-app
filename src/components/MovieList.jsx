@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, ListGroupItem } from 'reactstrap'
 import CustomButton from './CustomButton'
+import Line from './Line'
 
 function MovieList({value, changeImgLink, props}) {
 
@@ -12,7 +13,7 @@ function MovieList({value, changeImgLink, props}) {
 
     return (
         <ListGroupItem className="custom-list-group-item">
-            <p style={{height: '60px'}}><b>{ title }</b></p>
+            <p style={{height: '50px'}}><b>{ title }</b></p>
             <span>
             <img alt="" src={value.Poster != "N/A" ? value.Poster : 'https://i.pinimg.com/originals/13/9a/19/139a190b930b8efdecfdd5445cae7754.png'} onClick={() => changeImgLink({poster: value.Poster, title: value.Title})} className="custom-poster" /><br/>
                 <div style={{textAlign: 'left', fontSize: '10pt'}}>
@@ -21,6 +22,7 @@ function MovieList({value, changeImgLink, props}) {
                     Type : {value.Type}<br/>
                 </div>
             </span>
+            <Line/>
             <CustomButton width='100%' color='dark' icon={<i class="fas fa-info-circle"></i>} title="Detail" onClick={() => changePage()} />
         </ListGroupItem>
     )
