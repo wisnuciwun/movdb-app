@@ -7,37 +7,37 @@ import DefaultHeader from './DefaultHeader'
 class DefaultLayout extends Component {
     constructor(props) {
         super(props)
-    
+
         this.state = {
 
         }
     }
-    
+
     render() {
         return (
             <div>
-                    <DefaultHeader/>
-                        <Container style={{minHeight: "300px"}} fluid className="App lg">
-                            <Switch>
-                                {routes.map((route, idx) => {
-                                    return route.component ? (
-                                        <Route
-                                        key={idx}
-                                        path={route.path}
-                                        exact={route.exact}
-                                        name={route.name}
-                                        render={props => (
-                                            <route.component {...props} />
-                                        )}
-                                        />
-                                    )
-                                    :
-                                    null
-                                })
-                                }
-                                <Redirect from="/" to="/home" />
-                            </Switch>
-                        </Container>
+                <DefaultHeader />
+                <Container style={{ minHeight: "300px" }} fluid className="App lg">
+                    <Switch>
+                        {routes.map((route, idx) => {
+                            return route.component ? (
+                                <Route
+                                    key={idx}
+                                    path={route.path}
+                                    exact={route.exact}
+                                    name={route.name}
+                                    render={props => (
+                                        <route.component {...props} />
+                                    )}
+                                />
+                            )
+                                :
+                                null
+                        })
+                        }
+                        <Redirect from="/" to="/home" />
+                    </Switch>
+                </Container>
             </div>
         )
     }

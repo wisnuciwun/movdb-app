@@ -33,7 +33,7 @@ class Home extends Component {
     handleScroll = (e) => {
         const { scrollTop, clientHeight, scrollHeight } = e.currentTarget
         if (scrollHeight - scrollTop <= clientHeight) {
-            this.setState({ page: this.state.page + 1 }, () => this.handleNewListData())
+            this.setState({ page: this.state.page++ }, () => this.handleNewListData())
         }
     }
 
@@ -76,7 +76,7 @@ class Home extends Component {
 
         return (
             <div id="infinite" onScroll={this.handleScroll} className="d-flex justify-content-center">
-                <div style={{padding: '20px'}}>
+                <div className="p-3">
                     <InfiniteHome end={endResult} props={this.props} />
                 </div>
             </div>

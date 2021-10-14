@@ -107,16 +107,16 @@ class DefaultHeader extends Component {
       <div className="header">
         <Navbar className="d-flex justify-content-between" expand="lg">
           <NavbarBrand className="d-flex">
-            <a onMouseOver={() => {this.setState({imglogo: logogif})}} onMouseLeave={() => {this.setState({imglogo: logo})}} className="logo" href="/home"><h3><b><img style={{marginBottom: '10px'}} className="logo" src={imglogo} />&nbsp;MovDB</b></h3></a>
+            <a onMouseOver={() => {this.setState({imglogo: logogif})}} onMouseLeave={() => {this.setState({imglogo: logo})}} className="logo" href="/home"><h3><b><img className="mb-2 logo" src={imglogo} />&nbsp;MovDB</b></h3></a>
           </NavbarBrand>
           <div className="d-flex justify-content-between">
               <UncontrolledDropdown className="d-flex justify-content-between align-items-center">
-                <DropdownToggle className="d-flex justify-content-between" nav style={{ backgroundColor: 'gray', border: '0px' }}>
+                <DropdownToggle className="d-flex justify-content-between custom-navbar" nav>
                   <Input onClick={(e) => this.onChangeSearchKeyword('')} onKeyPress={this.onSearchKeypress} value={keyword} onChange={(e) => this.onChangeSearchKeyword(e.target.value)} className="custom-search margin-right" type="text" />
                   <CustomButton icon={<i class="fas fa-search"></i>} title="Search" onClick={this.onChangeSearchKeyword} />
                 </DropdownToggle>
                 <div style={{ width: '50%' }}>
-                  <DropdownMenu style={{ width: '100%', overflowY: 'auto', maxHeight: '200px' }}>
+                  <DropdownMenu className="custom-dropdown">
                     {
                       keywordFiltered.map((x, id) => {
                         return (<DropdownItem onClick={() => this.onSearchByFilterClick(x)} style={{ width: '100%' }} key={id}>{x}</DropdownItem>)

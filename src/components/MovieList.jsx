@@ -15,9 +15,9 @@ function MovieList({value, changeImgLink, props}) {
         <ListGroupItem className="custom-list-group-item">
             <p style={{height: '50px'}}><b>{ title }</b></p>
             <span>
-            <img alt="" src={value.Poster != "N/A" ? value.Poster : 'https://i.pinimg.com/originals/13/9a/19/139a190b930b8efdecfdd5445cae7754.png'} onClick={() => changeImgLink({poster: value.Poster, title: value.Title})} className="custom-poster" /><br/>
-                <div style={{textAlign: 'left', fontSize: '10pt'}}>
-                    Production year : {value.Year}<br/>
+            <img alt="" src={value.Poster != "N/A" ? value.Poster : 'https://i.pinimg.com/originals/13/9a/19/139a190b930b8efdecfdd5445cae7754.png'} onClick={() => changeImgLink({poster: value.Poster, title: value.Title})} className="custom-poster mt-2" /><br/>
+                <div className="mt-2 text-capitalize" style={{fontSize: '10pt', textAlign:'left'}}>
+                    Year : {value.Year}<br/>
                     IMDB ID : {value.imdbID}<br/>
                     Type : {value.Type}<br/>
                 </div>
