@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Nav, Navbar, Row, Col, NavbarBrand, Input, Button, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap'
-import { ErrorAlert } from '../components/Alerts.jsx'
+import { ErrorAlert, WarningAlert } from '../components/Alerts.jsx'
 import Axios from '../config/axios/axios'
 import { getMoviesData, searchMovieKeyword } from '../config/redux/rootAction'
 import { API_GET_MOVIES_DATA, API_KEY } from '../constants/Constants'
-import { RequestMoviesData, RequestMoviesDataByTitle } from '../helpers/RequestHandler'
+import { RequestMoviesData, RequestMoviesDataByTitle, RequestMoviesDataByYear } from '../helpers/RequestHandler'
 import logo from '../public/assets/images/logo.png'
 import logogif from '../public/assets/images/logo-gif.gif'
 import './index.scss'
 import CustomButton from '../components/CustomButton.jsx'
-import { YEAR } from '../constants/Years.js'
+import Years, { YEAR } from '../constants/Years.js'
 
 class DefaultHeader extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class DefaultHeader extends Component {
 
     this.state = {
       keyword: '',
+      year: '',
       keywordData: [],
       keywordFiltered: [],
       imglogo: logo
@@ -49,8 +50,19 @@ class DefaultHeader extends Component {
     }, () => this.fetchMoviesData(this.state.keyword))
   }
 
-  onSearchMovie = () => {
-    this.fetchMoviesData(this.state.keyword)
+  onSearchMovie = (option = 'keyword') => {
+    this.fetchMoviesData(this.state.keyword, option)
+  }
+
+  onSearchMovieByYear = (e) => {
+    let values = e.target.value
+
+    if(e.target.value == 'Erase year')
+    values = ''
+
+    this.setState({
+      year: values
+    }, () => this.onSearchMovie('year'))
   }
 
   keywordBank = (val) => {
@@ -69,16 +81,28 @@ class DefaultHeader extends Component {
     }
   }
 
-  fetchMoviesData = async (value = 'Batman') => {
+  fetchMoviesData = async (value = 'Batman', option = 'keyword') => {
+    
+    const { year } = this.state
     let { dispatch } = this.props
     let res = []
     let searchKeyword = value
 
+    if(searchKeyword == '' && option == 'year' && year != '')
+    WarningAlert('Please fill keyword')
+    else if(searchKeyword != '')
     try {
+
+      if(option == 'keyword')
       res = await RequestMoviesData(searchKeyword, 1)
-      if(res.Response.toString() == "False"){
-        res = {Search: [await RequestMoviesDataByTitle(searchKeyword)]}
+      else if(option == 'year')
+      res = { Search: [await RequestMoviesDataByYear(searchKeyword, year)] }
+
+      if (res.Response == "False") {
+        if (res.Response != "False")
+        res = { Search: [await RequestMoviesDataByTitle(searchKeyword)] }
       }
+
     } catch (error) {
       ErrorAlert(error)
     }
@@ -105,22 +129,22 @@ class DefaultHeader extends Component {
   }
 
   render() {
-    let { keyword, keywordFiltered, imglogo } = this.state
-    console.log(YEAR.slice(0, YEAR.indexOf(new Date().getUTCFullYear())))
+    let { keyword, year, keywordFiltered, imglogo } = this.state
+    const years = YEAR.slice(0, YEAR.indexOf(new Date().getUTCFullYear()))
+    years.push('Erase year')
 
     return (
       <div className="header">
         <Navbar className="d-flex justify-content-between" expand="lg">
           <NavbarBrand className="d-flex">
-            <a onMouseOver={() => {this.setState({imglogo: logogif})}} onMouseLeave={() => {this.setState({imglogo: logo})}} className="logo" href="/home"><h3><b><img className="mb-2 logo" src={imglogo} />&nbsp;MovDB</b></h3></a>
+            <a onMouseOver={() => { this.setState({ imglogo: logogif }) }} onMouseLeave={() => { this.setState({ imglogo: logo }) }} className="logo" href="/home"><h3><b><img className="mb-2 logo" src={imglogo} />&nbsp;MovDB</b></h3></a>
           </NavbarBrand>
           <div className="d-flex justify-content-between">
               <UncontrolledDropdown className="d-flex justify-content-between align-items-center">
                 <DropdownToggle className="d-flex justify-content-between custom-navbar" nav>
                   <Input onClick={(e) => this.onChangeSearchKeyword('')} onKeyPress={this.onSearchKeypress} value={keyword} onChange={(e) => this.onChangeSearchKeyword(e.target.value)} className="custom-search margin-right" type="text" />
-                  <CustomButton icon={<i class="fas fa-search"></i>} title="Search" onClick={this.onSearchMovie} />
                 </DropdownToggle>
-                <div style={{ width: '50%' }}>
+                <div>
                   <DropdownMenu className="custom-dropdown">
                     {
                       keywordFiltered.map((x, id) => {
@@ -130,6 +154,19 @@ class DefaultHeader extends Component {
                   </DropdownMenu>
                 </div>
               </UncontrolledDropdown>
+              <div style={{marginLeft: '-20px'}} className="d-flex align-items-center">
+              <UncontrolledDropdown direction='left'>
+                <DropdownToggle>
+                  {year ? year : <i className="fas fa-filter"></i>}
+                </DropdownToggle>
+                <DropdownMenu className="custom-dropdown">
+                  {years.reverse().map(x => {
+                    return (<DropdownItem value={x} onClick={this.onSearchMovieByYear}>{x}</DropdownItem>)
+                  })}
+                </DropdownMenu>
+              </UncontrolledDropdown>&nbsp;
+              <CustomButton icon={<i className="fas fa-search"></i>} title="Search" onClick={this.onSearchMovie} />
+              </div>
           </div>
         </Navbar>
       </div>

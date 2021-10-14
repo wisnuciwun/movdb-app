@@ -19,3 +19,12 @@ export function ErrorAlert(msg = 'Failed to process request') {
         showConfirmButton: true
     })
 }
+
+export function WarningAlert(msg = '') {
+    Swal.fire({
+        titleText: "Oops..",
+        text: msg,
+        icon: "error",
+        showConfirmButton: true
+    })
+}
