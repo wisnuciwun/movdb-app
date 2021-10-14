@@ -60,7 +60,7 @@ class Home extends Component {
         }
     }
 
-    UNSAFE_componentWillReceiveProps(props){
+    getSnapshotBeforeUpdate(props){
         if(props.keyword != this.props.keyword)
         {
             this.setState({
@@ -71,6 +71,7 @@ class Home extends Component {
     }
 
     render() {
+        
         let { endResult } = this.state
 
         return (

@@ -11,13 +11,11 @@ function App() {
   return (
     <div className="App">
     <BrowserRouter>
-      <div className="custom-body" style={{backgroundColor: 'white'}}>
         <Suspense fallback={<Loading/>}>
           <Switch>
             <Route path="/" name="home" render={props => <DefaultLayout {...props} />} />
           </Switch>
         </Suspense>
-      </div>
     </BrowserRouter>    
     </div>
   );
