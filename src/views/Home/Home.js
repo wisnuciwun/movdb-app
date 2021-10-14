@@ -75,7 +75,7 @@ class Home extends Component {
         let { endResult } = this.state
 
         return (
-            <div id="infinite" onScroll={this.handleScroll} className="d-flex justify-content-center">
+            <div id="infinite" onScroll={this.handleScroll} className="d-flex justify-content-center fadeIn-screen">
                 <div className="p-3">
                     <InfiniteHome end={endResult} props={this.props} />
                 </div>

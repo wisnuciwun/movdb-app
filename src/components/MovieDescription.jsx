@@ -4,7 +4,7 @@ import TextDecoration from './TextDecoration'
 
 function MovieDescription({movieDetail, showDetails}) {
     return (
-        <div>
+        <div className="fadeIn-screen">
             <h3><span style={{ color: 'red', fontWeight: 'bold' }}>| </span>{movieDetail.Title}</h3><br />
             <div className="d-flex justify-content-start">
                 <img src={movieDetail.Poster} className="detailpage-image margin-right" />
