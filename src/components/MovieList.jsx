@@ -9,7 +9,8 @@ function MovieList({value, changeImgLink, props}) {
         props.history.push('/detail', value.Title)
     }
 
-    const title = value.Title.split('', 40).reduce((a, b) => a.length === 40 ? `${a}${b}...` : `${a}${b}` , '')
+    const title = value.Title
+    //.split('', 40).reduce((a, b) => a.length === 40 ? `${a}${b}...` : `${a}${b}` , '')
 
     return (
         <ListGroupItem className="custom-list-group-item">

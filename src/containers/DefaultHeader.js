@@ -50,8 +50,8 @@ class DefaultHeader extends Component {
     }, () => this.fetchMoviesData(this.state.keyword))
   }
 
-  onSearchMovie = (option = 'keyword') => {
-    this.fetchMoviesData(this.state.keyword, option)
+  onSearchMovie = () => {
+    this.fetchMoviesData(this.state.keyword)
   }
 
   onSearchMovieByYear = (e) => {
@@ -62,7 +62,7 @@ class DefaultHeader extends Component {
 
     this.setState({
       year: values
-    }, () => this.onSearchMovie('year'))
+    })
   }
 
   keywordBank = (val) => {
@@ -81,12 +81,18 @@ class DefaultHeader extends Component {
     }
   }
 
-  fetchMoviesData = async (value = 'Batman', option = 'keyword') => {
+  fetchMoviesData = async (value = 'Batman') => {
     
-    const { year } = this.state
+    const { year, keyword } = this.state
     let { dispatch } = this.props
     let res = []
     let searchKeyword = value
+    let option = ''
+
+    if(year != '')
+    option = 'year'
+    else
+    option = 'keyword'
 
     if(searchKeyword == '' && option == 'year' && year != '')
     WarningAlert('Please fill keyword')
@@ -96,11 +102,15 @@ class DefaultHeader extends Component {
       if(option == 'keyword')
       res = await RequestMoviesData(searchKeyword, 1)
       else if(option == 'year')
-      res = { Search: [await RequestMoviesDataByYear(searchKeyword, year)] }
+      res = await RequestMoviesDataByYear(searchKeyword, year)
 
-      if (res.Response == "False") {
+      if (res.Response != "False" && option == 'year') {
+        res = { Search: [res] }
+      }
+      else if(res.Response == "False"){
+        res = await RequestMoviesDataByTitle(searchKeyword)
         if (res.Response != "False")
-        res = { Search: [await RequestMoviesDataByTitle(searchKeyword)] }
+        res = { Search: [res] }
       }
 
     } catch (error) {
@@ -132,6 +142,7 @@ class DefaultHeader extends Component {
     let { keyword, year, keywordFiltered, imglogo } = this.state
     const years = YEAR.slice(0, YEAR.indexOf(new Date().getUTCFullYear()))
     years.push('Erase year')
+    console.log("object", year, keyword)
 
     return (
       <div className="header">
