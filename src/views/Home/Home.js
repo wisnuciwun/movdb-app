@@ -33,7 +33,9 @@ class Home extends Component {
     handleScroll = (e) => {
         const { scrollTop, clientHeight, scrollHeight } = e.currentTarget
         if (scrollHeight - scrollTop <= clientHeight) {
-            this.setState({ page: this.state.page++ }, () => this.handleNewListData())
+            setTimeout(() => {
+                this.setState({ page: this.state.page + 1 }, () => this.handleNewListData())  
+            }, 1000);
         }
     }
 
