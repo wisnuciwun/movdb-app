@@ -5,14 +5,6 @@ import routes from '../routes'
 import DefaultHeader from './DefaultHeader'
 
 class DefaultLayout extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-
-        }
-    }
-
     render() {
         return (
             <div>
@@ -35,7 +27,6 @@ class DefaultLayout extends Component {
                                 null
                         })
                         }
-                        <Redirect from="/" to="/home" />
                     </Switch>
                 </Container>
             </div>

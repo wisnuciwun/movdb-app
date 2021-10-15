@@ -1,9 +1,11 @@
 import React, { Component, Suspense } from 'react'
 import { connect } from 'react-redux'
+import { useLocation } from 'react-router'
 import { ErrorAlert } from '../../components/Alerts.jsx'
 import Loading from '../../components/Loading.jsx'
 import Axios from '../../config/axios/axios'
 import { API_GET_MOVIES_DATA, API_KEY } from '../../constants/Constants'
+import { MOVIE_DETAIL_QUERY } from '../../constants/QueryString.js'
 import './index.scss'
 
 class MovieDetail extends Component {
@@ -18,8 +20,10 @@ class MovieDetail extends Component {
 
     getDetailedData = async () => {
         let res
+        let query = this.props.location.search.replace(`?${MOVIE_DETAIL_QUERY}`,'')
+
         try {
-            res = await Axios(`${API_GET_MOVIES_DATA}apikey=${API_KEY}&t=${this.props.location.state}`)
+            res = await Axios(`${API_GET_MOVIES_DATA}apikey=${API_KEY}&t=${query}}`)
         } catch (error) {
             ErrorAlert(error)
         }

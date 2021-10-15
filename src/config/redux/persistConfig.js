@@ -7,7 +7,7 @@ import rootReducer from './rootReducer'
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['movies', 'keyword'],
+  whitelist: ['movies', 'keyword', 'year'],
   blacklist: []
 }
  

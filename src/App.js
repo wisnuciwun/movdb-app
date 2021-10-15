@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
         <Suspense fallback={<Loading/>}>
           <Switch>
-            <Route path="/" name="home" render={props => <DefaultLayout {...props} />} />
+            <Route render={props => <DefaultLayout {...props} />} />
           </Switch>
         </Suspense>
     </BrowserRouter>    

@@ -3,11 +3,12 @@ import { Button, ListGroupItem } from 'reactstrap'
 import CustomButton from './CustomButton'
 import Line from './Line'
 import ErrorImage from '../public/assets/images/err_img.png'
+import { MOVIE_DETAIL_QUERY } from '../constants/QueryString'
 
 function MovieList({value, changeImgLink, props}) {
 
     const changePage = () => {
-        props.history.push('/detail', value.Title)
+        props.history.push(`/detail?${MOVIE_DETAIL_QUERY}${value.Title}`)
     }
 
     const title = value.Title.split('', 40).reduce((a, b) => a.length === 40 ? `${a}${b}...` : `${a}${b}` , '')

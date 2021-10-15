@@ -2,7 +2,8 @@ import * as actionTypes from './actionTypes';
 
 const init = {
     movies: [],
-    keyword: 'Batman'
+    keyword: 'Batman',
+    year: ''
 }
 
 const rootReducer = (state =  init, action ) => {
@@ -17,6 +18,12 @@ const rootReducer = (state =  init, action ) => {
             return {
                 ...state,
                 keyword: action.data
+            }
+        
+        case actionTypes.SEARCH_MOVIE_YEAR:
+            return {
+                ...state,
+                year: action.data
             }
     
         default:

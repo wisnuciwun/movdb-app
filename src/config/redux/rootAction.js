@@ -13,3 +13,10 @@ export const searchMovieKeyword = (data) => {
         data: data,
     }
 }
+
+export const searchMovieYear = (data) => {
+    return{
+        type: actionTypes.SEARCH_MOVIE_YEAR,
+        data: data,
+    }
+}
