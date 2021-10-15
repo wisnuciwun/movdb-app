@@ -9,7 +9,7 @@ function InfiniteHome({ props, end }) {
     const [Toggle, setToggle] = useState(false)
 
     return (
-        <div>
+        <div className='justify-content-center'>
             <div className="flex-images justify-content-center">
                     {props.movies != undefined ?
                         props.movies.map(x => {
@@ -20,7 +20,9 @@ function InfiniteHome({ props, end }) {
                     }                
                 <ImageModal toggle={Toggle} setToggle={setToggle} imgTitle={modals.title} imgLink={modals.link} />
             </div>
+            <div className="d-flex justify-content-center">
             {end ? <CustomAlert message='Page reaches end of result' color='success' icon={<i class="fas fa-flag-checkered"></i>} /> : null}
+            </div>
         </div>
     )
 }

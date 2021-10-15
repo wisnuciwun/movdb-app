@@ -4,6 +4,8 @@ import { getMoviesData } from '../../config/redux/rootAction'
 import InfiniteHome from '../../components/InfiniteHome.jsx';
 import { RequestMoviesData } from '../../helpers/RequestHandler';
 import { ErrorAlert } from '../../components/Alerts.jsx';
+import {YEAR} from '../../constants/Years';
+import { DropdownItem } from 'reactstrap';
 
 class Home extends Component {
     constructor(props) {
@@ -32,6 +34,7 @@ class Home extends Component {
 
     handleScroll = (e) => {
         const { scrollTop, clientHeight, scrollHeight } = e.currentTarget
+
         if (scrollHeight - scrollTop <= clientHeight) {
             setTimeout(() => {
                 this.setState({ page: this.state.page + 1 }, () => this.handleNewListData())  
@@ -79,7 +82,7 @@ class Home extends Component {
         return (
             <div id="infinite" onScroll={this.handleScroll} className="d-flex justify-content-center fadeIn-screen">
                 <div className="p-3">
-                    <InfiniteHome end={endResult} props={this.props} />
+                  <InfiniteHome end={endResult} props={this.props} />
                 </div>
             </div>
         )

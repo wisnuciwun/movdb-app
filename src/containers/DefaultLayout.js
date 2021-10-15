@@ -17,7 +17,7 @@ class DefaultLayout extends Component {
         return (
             <div>
                 <DefaultHeader />
-                <Container style={{ minHeight: "300px" }} fluid className="App lg">
+                <Container fluid className="App lg animated fadeIn">
                     <Switch>
                         {routes.map((route, idx) => {
                             return route.component ? (

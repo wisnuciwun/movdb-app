@@ -62,7 +62,7 @@ class MovieDetail extends Component {
         }
 
         return (
-            <div className="p-3">
+            <div id="infinite" className="p-3">
                 <Suspense fallback={<Loading/>}>
                     <MovieDescription movieDetail={movieDetail} showDetails={showDetails} />
                 </Suspense>

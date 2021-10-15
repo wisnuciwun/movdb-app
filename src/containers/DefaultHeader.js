@@ -10,7 +10,7 @@ import logo from '../public/assets/images/logo.png'
 import logogif from '../public/assets/images/logo-gif.gif'
 import './index.scss'
 import CustomButton from '../components/CustomButton.jsx'
-import Years, { YEAR } from '../constants/Years.js'
+import { YEAR } from '../constants/Years.js'
 
 class DefaultHeader extends Component {
   constructor(props) {
@@ -142,13 +142,12 @@ class DefaultHeader extends Component {
     let { keyword, year, keywordFiltered, imglogo } = this.state
     const years = YEAR.slice(0, YEAR.indexOf(new Date().getUTCFullYear()))
     years.push('Erase year')
-    console.log("object", year, keyword)
 
     return (
       <div className="header">
         <Navbar className="d-flex justify-content-between" expand="lg">
-          <NavbarBrand className="d-flex">
-            <a  onMouseOver={() => { this.setState({ imglogo: logogif }) }} onMouseLeave={() => { this.setState({ imglogo: logo }) }} className="logo" href="/home"><h3><b><img className="mb-2 logo" src={imglogo} />&nbsp;MovDB</b></h3></a>
+          <NavbarBrand style={{width:'120px'}} className="d-flex">
+            <a onMouseOver={() => { this.setState({ imglogo: logogif }) }} onMouseLeave={() => { this.setState({ imglogo: logo }) }} className="logo" href="/home"><h3><b><img className="mb-2 logo" src={imglogo} />&nbsp;MovDB</b></h3></a>
           </NavbarBrand>
           <div className="d-flex justify-content-between">
               <UncontrolledDropdown className="d-flex justify-content-between align-items-center">
@@ -176,7 +175,7 @@ class DefaultHeader extends Component {
                   })}
                 </DropdownMenu>
               </UncontrolledDropdown>&nbsp;
-              <CustomButton icon={<i className="fas fa-search"></i>} title="Search" onClick={this.onSearchMovie} />
+              <CustomButton width='50px' icon={<i className="fas fa-search"></i>} onClick={this.onSearchMovie} />
               </div>
           </div>
         </Navbar>
