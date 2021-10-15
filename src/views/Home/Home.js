@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getMoviesData } from '../../config/redux/rootAction'
 import InfiniteHome from '../../components/InfiniteHome.jsx';
-import { RequestMoviesData } from '../../helpers/RequestHandler';
+import { RequestMoviesData, RequestMoviesDataByYear } from '../../helpers/RequestHandler';
 import { ErrorAlert } from '../../components/Alerts.jsx';
 import {YEAR} from '../../constants/Years';
 import { DropdownItem } from 'reactstrap';
@@ -47,6 +47,9 @@ class Home extends Component {
         let res
 
         try {
+            if(this.props.year != '')
+            res = await RequestMoviesDataByYear(this.props.keyword, this.state.page)
+            else
             res = await RequestMoviesData(this.props.keyword, this.state.page)
         } catch (error) {
             ErrorAlert(error)

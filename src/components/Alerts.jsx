@@ -24,7 +24,7 @@ export function WarningAlert(msg = '') {
     Swal.fire({
         titleText: "Oops..",
         text: msg,
-        icon: "error",
+        icon: "warning",
         showConfirmButton: true
     })
 }

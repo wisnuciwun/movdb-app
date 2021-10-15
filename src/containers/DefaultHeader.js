@@ -18,6 +18,7 @@ class DefaultHeader extends Component {
     super(props)
 
     this.state = {
+      defaultKeyword: 'Batman',
       keyword: '',
       year: '',
       keywordData: [],
@@ -85,18 +86,17 @@ class DefaultHeader extends Component {
 
   fetchMoviesData = async (value = 'Batman') => {
     let queries = window.location.search.split('&')
+    let searchKeyword = value
     let querykeyword = ''
     let queryyear = ''
 
-    if(window.location.pathname != '/')
-    {
+    if(window.location.pathname != '/'){
       querykeyword = queries[0].replace(`?${MOVIE_KEYWORD_QUERY}`,'')
-      queryyear = queries[1].replace(`${MOVIE_YEAR_QUERY}`,'')  
+      queryyear = queries[1].replace(`${MOVIE_YEAR_QUERY}`,'')
     }
 
     let { dispatch } = this.props
     let res = []
-    let searchKeyword = value
     let option = ''
 
     if(querykeyword != '')
@@ -107,9 +107,6 @@ class DefaultHeader extends Component {
     else
     option = 'keyword'
 
-    if(searchKeyword == '' && option == 'year' && queryyear != '')
-    WarningAlert('Please fill keyword')
-    else if(searchKeyword != '')
     try {
 
       if(option == 'keyword')
