@@ -1,5 +1,7 @@
 .detailpage-image{
     height: 400px;
-    width: auto;
+    min-width: 300px;
+    max-width: 400px;
+    object-fit: fill;
     border-radius: 10px;
 }

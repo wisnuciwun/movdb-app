@@ -148,7 +148,7 @@ class DefaultHeader extends Component {
       <div className="header">
         <Navbar className="d-flex justify-content-between" expand="lg">
           <NavbarBrand className="d-flex">
-            <a onMouseOver={() => { this.setState({ imglogo: logogif }) }} onMouseLeave={() => { this.setState({ imglogo: logo }) }} className="logo" href="/home"><h3><b><img className="mb-2 logo" src={imglogo} />&nbsp;MovDB</b></h3></a>
+            <a  onMouseOver={() => { this.setState({ imglogo: logogif }) }} onMouseLeave={() => { this.setState({ imglogo: logo }) }} className="logo" href="/home"><h3><b><img className="mb-2 logo" src={imglogo} />&nbsp;MovDB</b></h3></a>
           </NavbarBrand>
           <div className="d-flex justify-content-between">
               <UncontrolledDropdown className="d-flex justify-content-between align-items-center">
