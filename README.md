@@ -1,8 +1,10 @@
 
 # 📺 **MovDb**
 
-🎉 Silahkan kunjungi website tester nya di :
+✨ Silahkan kunjungi website tester nya di :
 https://peaceful-gates-d0c811.netlify.app/
+
+🚚 API yang digunakan : http://www.omdbapi.com/
 
 📝 Note :
 > page untuk search di mode test deployment masih error 404 not found.
@@ -53,7 +55,7 @@ Pencarian dapat digunakan baik dari page home maupun dari page detail.
 
 Semua keyword yang sudah tertulis di kolom search dan year akan disimpan di dalam redux (whitelist). sehingga tidak dapat hilang meskipun website direload.
 
-3. **redux**<br>
+3. **R  edux**<br>
 
 Penampakan isi redux dari console.log :
 ```
@@ -72,7 +74,7 @@ keyword     : digunakan untuk menyimpan kata kunci kolom search<br>
 year        : digunakan untuk menyimpan kata kunci tahun<br>
 movies      : digunakan untuk menyimpan result dari api<br>
 
-4. **show detail**<br>
+4. **Show detail**<br>
 
 Page detail dapat diakses melalui tombol detail dari page home. page detail memanfaatkan window.location.pathname untuk menterjemahkan query string movies_name dan dimasukkan ke api sama seperti RequestMoviesDataByTitle.
 
